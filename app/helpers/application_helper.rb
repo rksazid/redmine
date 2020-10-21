@@ -1649,7 +1649,10 @@ module ApplicationHelper
       'tablesort-5.2.1.min.js',
       'tablesort-5.2.1.number.min.js',
       'application',
-      'responsive')
+      'responsive',
+      'jquery.slimscroll.min.js',
+      'sleek.bundle.min.js'
+      )
     unless User.current.pref.warn_on_leaving_unsaved == '0'
       tags << "\n".html_safe + javascript_tag("$(window).on('load', function(){ warnLeavingUnsaved('#{escape_javascript l(:text_warn_on_leaving_unsaved)}'); });")
     end

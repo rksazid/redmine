@@ -1092,6 +1092,21 @@ function inlineAutoComplete(element) {
     tribute.attach(element);
 }
 
+$(document).ready(function() {
+    $.each($('.sidebar').find('.sidenav-item-link'), function () {
+        // console.log($(this).attr('href') , window.location.pathname);
+        var flag = true;
+        if ($(this).attr('href') === window.location.pathname && flag) {
+            $(this).parent().addClass('active');
+            $(this).parent().parent().parent().addClass('show');
+            $(this).parent().parent().parent().parent().addClass('expand');
+            $(this).parent().parent().parent().siblings('.sidenav-item-link').attr('aria-expanded', true);
+            $(this).parent().parent().parent().siblings('.sidenav-item-link').removeClass('collapsed');
+            flag = false;
+        }
+    });
+
+});
 
 $(document).ready(setupAjaxIndicator);
 $(document).ready(hideOnLoad);

@@ -105,6 +105,13 @@ module Redmine
         end
       end
 
+      # Renders the application main menu in sidebar
+      def render_main_menu_sidebar(project)
+        if menu_name = controller.current_menu(project)
+          render_menu_sidebar(menu_name, project)
+        end
+      end
+
       def display_main_menu?(project)
         menu_name = controller.current_menu(project)
         menu_name.present? && Redmine::MenuManager.items(menu_name).children.present?
@@ -118,6 +125,15 @@ module Redmine
         links.empty? ? nil : content_tag('ul', links.join.html_safe)
       end
 
+      def render_menu_sidebar(menu, project=nil)
+        links = []
+        menu_items_for(menu, project) do |node|
+          links << render_menu_node_sidebar(node, project)
+        end
+        links
+        # links.empty? ? nil : content_tag('ul', links.join.html_safe)
+      end
+
       def render_menu_node(node, project=nil)
         if node.children.present? || !node.child_menus.nil?
           return render_menu_node_with_children(node, project)
@@ -125,6 +141,20 @@ module Redmine
           caption, url, selected = extract_node_details(node, project)
           return content_tag('li',
                              render_single_menu_node(node, caption, url, selected))
+        end
+      end
+
+      def render_menu_node_sidebar(node, project=nil)
+        if node.children.present? || !node.child_menus.nil?
+          # return render_menu_node_with_children(node, project)
+        else
+          caption, url, selected = extract_node_details(node, project)
+          {
+              url: url,
+              caption: caption,
+              selected: selected
+          }
+          # return content_tag('li', render_single_menu_node(node, caption, url, selected))
         end
       end
 

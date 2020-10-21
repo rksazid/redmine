@@ -214,7 +214,7 @@
   /* hide sidebar and sidebar switch panel, since it's placed in mobile flyout menu */
   #sidebar,
   #sidebar-switch-panel {
-    display: none;
+    /*display: none;*/
   }
 
   .splitcontentleft, .splitcontentright, .splitcontenttop {

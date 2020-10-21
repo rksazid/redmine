@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '>= 2.3.0', '< 2.7.0'
+ruby '2.7.1'
 gem 'bundler', '>= 1.12.0'
 
 gem 'rails', '5.2.4.4'
@@ -10,6 +10,9 @@ gem 'request_store', '~> 1.5.0'
 gem "mini_mime", "~> 1.0.1"
 gem "actionpack-xml_parser"
 gem "roadie-rails", (RUBY_VERSION < "2.5" ? "~> 1.3.0" : "~> 2.1.0")
+
+gem 'slim'
+gem 'slim-rails'
 gem "mimemagic"
 gem "mail", "~> 2.7.1"
 gem 'csv', (RUBY_VERSION < '2.5' ? ['>= 3.1.1', '<= 3.1.5'] : '~> 3.1.1')
@@ -80,6 +83,7 @@ end
 
 group :development do
   gem "yard"
+  gem 'rails-erd'
 end
 
 group :test do
