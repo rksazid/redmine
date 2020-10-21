@@ -1,0 +1,342 @@
+aside.left-sidebar.bg-sidebar
+  #sidebar.sidebar
+    /! Application Brand
+    .app-brand
+      a href="#{home_path}" title=("PACTA Dashboard")
+        / = image_tag 'header-logo-tib.png', class: 'brand-logo'
+        svg.brand-icon height="33" preserveAspectRatio="xMidYMid" viewBox=("0 0 30 33") width="30"
+          g fill="none" fill-rule="evenodd"
+            path.logo-fill-blue d=("M0 4v25l8 4V0zM22 4v25l8 4V0z") fill="#7DBCFF"
+            path.logo-fill-white d=("M11 4v25l8 4V0z") fill="#FFF"
+        span.brand-name.text-truncate PACTA Bangladesh
+    /! begin sidebar scrollbar
+    .sidebar-scrollbar
+      /! sidebar menu
+      ul#sidebar-menu.nav.sidebar-inner
+        - if User.current.logged? || !Setting.login_required?
+          li.has-sub
+            a.sidenav-item-link aria-controls="mystuff" aria-expanded="false" data-target="#mystuff" data-toggle="collapse" href="javascript:void(0)"
+              i.mdi.mdi-home-account
+              span.nav-text My stuff
+              b.caret
+            ul#mystuff.collapse data-parent="#sidebar-menu"
+              .sub-menu
+                li
+                  a.sidenav-item-link href="#{my_page_path}"
+                    span.nav-text My page
+                li
+                  a.sidenav-item-link href="#{projects_path}"
+                    span.nav-text Projects
+                li
+                  a.sidenav-item-link href="#{admin_path}"
+                    span.nav-text Administration
+        - if display_main_menu?(@project)
+          li.has-sub
+            a.sidenav-item-link aria-controls="project-menu" aria-expanded="false" data-target="#project-menu" data-toggle="collapse" href="javascript:void(0)"
+              i.mdi.mdi-folder
+              span.nav-text Project menu
+              b.caret
+            ul#project-menu.collapse data-parent="#sidebar-menu"
+              .sub-menu
+                - main_menu = render_main_menu_sidebar(@project)
+                - main_menu.each do |node|
+                  -if node.present?
+                    li
+                      = link_to node[:url], class: 'sidenav-item-link'
+                        span.nav-text = node[:caption]
+        li.has-sub
+          a.sidenav-item-link aria-controls="dashboard" aria-expanded="false" data-target="#dashboard" data-toggle="collapse" href="javascript:void(0)"
+            i.mdi.mdi-view-dashboard-outline
+            span.nav-text Dashboard
+            b.caret
+          ul#dashboard.collapse data-parent="#sidebar-menu"
+            .sub-menu
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Ecommerce
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Analytics
+                  span.badge.badge-success new
+        li.has-sub
+          a.sidenav-item-link aria-controls="app" aria-expanded="false" data-target="#app" data-toggle="collapse" href="javascript:void(0)"
+            i.mdi.mdi-pencil-box-multiple
+            span.nav-text App
+            b.caret
+          ul#app.collapse data-parent="#sidebar-menu"
+            .sub-menu
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Chat
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Contacts
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Team
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Calendar
+        li.has-sub
+          a.sidenav-item-link aria-controls="components" aria-expanded="false" data-target="#components" data-toggle="collapse" href="javascript:void(0)"
+            i.mdi.mdi-folder-multiple-outline
+            span.nav-text Components
+            b.caret
+          ul#components.collapse.show data-parent="#sidebar-menu"
+            .sub-menu
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Alert
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Badge
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Breadcrumb
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Button Default
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Button Dropdown
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Button Group
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Button Social
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Button Loading
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Card
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Carousel
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Collapse
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text List Group
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Modal
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Pagination
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Popover  Tooltip
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Progress Bar
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Spinner
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Switcher
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Tab
+        li.has-sub
+          a.sidenav-item-link aria-controls="icons" aria-expanded="false" data-target="#icons" data-toggle="collapse" href="javascript:void(0)"
+            i.mdi.mdi-diamond-stone
+            span.nav-text Icons
+            b.caret
+          ul#icons.collapse data-parent="#sidebar-menu"
+            .sub-menu
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Material Icon
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Flag Icon
+        li.has-sub
+          a.sidenav-item-link aria-controls="forms" aria-expanded="false" data-target="#forms" data-toggle="collapse" href="javascript:void(0)"
+            i.mdi.mdi-email-mark-as-unread
+            span.nav-text Forms
+            b.caret
+          ul#forms.collapse data-parent="#sidebar-menu"
+            .sub-menu
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Basic Input
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Input Group
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Checkbox  Radio
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Form Validation
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Form Advance
+        li.has-sub
+          a.sidenav-item-link aria-controls="tables" aria-expanded="false" data-target="#tables" data-toggle="collapse" href="javascript:void(0)"
+            i.mdi.mdi-table
+            span.nav-text Tables
+            b.caret
+          ul#tables.collapse data-parent="#sidebar-menu"
+            .sub-menu
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Basic Tables
+              li.has-sub
+                a.sidenav-item-link aria-controls="data-tables" aria-expanded="false" data-target="#data-tables" data-toggle="collapse" href="javascript:void(0)"
+                  span.nav-text Data Tables
+                  b.caret
+                ul#data-tables.collapse
+                  .sub-menu
+                    li
+                      a href="#"  Basic Data Table
+                    li
+                      a href="#"  Responsive Data Table
+                    li
+                      a href="#"  Hoverable Data Table
+                    li
+                      a href="#"  Expendable Data Table
+        li.has-sub
+          a.sidenav-item-link aria-controls="maps" aria-expanded="false" data-target="#maps" data-toggle="collapse" href="javascript:void(0)"
+            i.mdi.mdi-google-maps
+            span.nav-text Maps
+            b.caret
+          ul#maps.collapse data-parent="#sidebar-menu"
+            .sub-menu
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Google Map
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Vector Map
+        li.has-sub
+          a.sidenav-item-link aria-controls="widgets" aria-expanded="false" data-target="#widgets" data-toggle="collapse" href="javascript:void(0)"
+            i.mdi.mdi-widgets
+            span.nav-text Widgets
+            b.caret
+          ul#widgets.collapse data-parent="#sidebar-menu"
+            .sub-menu
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text General Widget
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Chart Widget
+        li.has-sub
+          a.sidenav-item-link aria-controls="charts" aria-expanded="false" data-target="#charts" data-toggle="collapse" href="javascript:void(0)"
+            i.mdi.mdi-chart-pie
+            span.nav-text Charts
+            b.caret
+          ul#charts.collapse data-parent="#sidebar-menu"
+            .sub-menu
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text ChartJS
+        li.has-sub
+          a.sidenav-item-link aria-controls="pages" aria-expanded="false" data-target="#pages" data-toggle="collapse" href="javascript:void(0)"
+            i.mdi.mdi-image-filter-none
+            span.nav-text Pages
+            b.caret
+          ul#pages.collapse data-parent="#sidebar-menu"
+            .sub-menu
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text User Profile
+              li.has-sub
+                a.sidenav-item-link aria-controls="authentication" aria-expanded="false" data-target="#authentication" data-toggle="collapse" href="javascript:void(0)"
+                  span.nav-text Authentication
+                  b.caret
+                ul#authentication.collapse
+                  .sub-menu
+                    li
+                      a href="#"  Sign In
+                    li
+                      a href="#"  Sign Up
+              li.has-sub
+                a.sidenav-item-link aria-controls="others" aria-expanded="false" data-target="#others" data-toggle="collapse" href="javascript:void(0)"
+                  span.nav-text Others
+                  b.caret
+                ul#others.collapse
+                  .sub-menu
+                    li
+                      a href="#"  Invoice
+                    li
+                      a href="#"  404 Page
+        li.has-sub
+          a.sidenav-item-link aria-controls="documentation" aria-expanded="false" data-target="#documentation" data-toggle="collapse" href="javascript:void(0)"
+            i.mdi.mdi-book-open-page-variant
+            span.nav-text Documentation
+            b.caret
+          ul#documentation.collapse data-parent="#sidebar-menu"
+            .sub-menu
+              li.section-title
+                | Getting Started
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Introduction
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Quick Start
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text Customization
+              li.section-title
+                | Layouts
+              li.has-sub
+                a.sidenav-item-link aria-controls="headers" aria-expanded="false" data-target="#headers" data-toggle="collapse" href="javascript:void(0)"
+                  span.nav-text Header Variations
+                  b.caret
+                ul#headers.collapse
+                  .sub-menu
+                    li
+                      a href="#"  Header Fixed
+                    li
+                      a href="#"  Header Static
+                    li
+                      a href="#"  Header Light
+                    li
+                      a href="#"  Header Dark
+              li.has-sub
+                a.sidenav-item-link aria-controls="sidebar-navs" aria-expanded="false" data-target="#sidebar-navs" data-toggle="collapse" href="javascript:void(0)"
+                  span.nav-text Sidebar Variations
+                  b.caret
+                ul#sidebar-navs.collapse
+                  .sub-menu
+                    li
+                      a href="#"  Sidebar Fixed Default
+                    li
+                      a href="#"  Sidebar Fixed Minified
+                    li
+                      a href="#"  Sidebar Fixed Offcanvas
+                    li
+                      a href="#"  Sidebar Static Default
+                    li
+                      a href="#"  Sidebar Static Minified
+                    li
+                      a href="#"  Sidebar Static Offcanvas
+                    li
+                      a href="#"  Sidebar With Footer
+                    li
+                      a href="#"  Sidebar Without Footer
+                    li
+                      a href="#"  Right Sidebar
+              li
+                a.sidenav-item-link href="#"
+                  span.nav-text RTL Direction
+    / .sidebar-footer
+    /   hr.separator.mb-0
+    /   .sidebar-footer-content
+    /     h6.text-uppercase
+    /       | Cpu Uses
+    /       span.float-right 40%
+    /     .progress.progress-xs
+    /       .progress-bar.active role="progressbar" style=("width: 40%;")
+    /     h6.text-uppercase
+    /       | Memory Uses
+    /       span.float-right 65%
+    /     .progress.progress-xs
+    /       .progress-bar.progress-bar-warning role="progressbar" style=("width: 65%;")

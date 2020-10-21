@@ -1,0 +1,101 @@
+header#header.main-header
+  nav.navbar.navbar-static-top.navbar-expand-lg
+    /! Sidebar toggle button
+    button#sidebar-toggler.sidebar-toggle
+      span.sr-only Toggle navigation
+    /! search form
+    .search-form.d-none.d-lg-inline-block
+      / .input-group
+      /   button#search-btn.btn.btn-flat name="search" type="button"
+      /     i.mdi.mdi-magnify
+      /   input#search-input.form-control autocomplete="off" autofocus="" name="query" placeholder="'button', 'chart' etc." type="text" /
+      / #search-results-container
+      /   ul#search-results
+    .navbar-right
+      ul.nav.navbar-nav
+        li.search-project-group
+          #quick-search
+            = form_tag({:controller => 'search', :action => 'index', :id => @project}, :method => :get) do
+              = hidden_field_tag 'scope', default_search_project_scope, :id => nil
+              = hidden_field_tag(controller.default_search_scope, 1, :id => nil) if controller.default_search_scope
+              label for="q"
+                = link_to l(:label_search), {:controller => 'search', :action => 'index', :id => @project, :scope => default_search_project_scope}, :accesskey => accesskey(:search)
+              = text_field_tag 'q', @question, :size => 20, :class => 'small', :accesskey => accesskey(:quick_search),
+                      data: {auto_complete: true, issues_url: auto_complete_issues_path(q: '')}
+          = render_project_jump_box
+        li.dropdown.notifications-menu
+          button.dropdown-toggle data-toggle="dropdown"
+            i.mdi.mdi-bell-outline
+          ul.dropdown-menu.dropdown-menu-right
+            li.dropdown-header You have 5 notifications
+            li
+              a href="#"
+                i.mdi.mdi-account-plus
+                | New user registered
+                span.font-size-12.d-inline-block.float-right
+                  i.mdi.mdi-clock-outline
+                  | 10 AM
+            li
+              a href="#"
+                i.mdi.mdi-account-remove
+                | User deleted
+                span.font-size-12.d-inline-block.float-right
+                  i.mdi.mdi-clock-outline
+                  | 07 AM
+            li
+              a href="#"
+                i.mdi.mdi-chart-areaspline
+                | Sales report is ready
+                span.font-size-12.d-inline-block.float-right
+                  i.mdi.mdi-clock-outline
+                  | 12 PM
+            li
+              a href="#"
+                i.mdi.mdi-account-supervisor
+                | New client
+                span.font-size-12.d-inline-block.float-right
+                  i.mdi.mdi-clock-outline
+                  | 10 AM
+            li
+              a href="#"
+                i.mdi.mdi-server-network-off
+                | Server overloaded
+                span.font-size-12.d-inline-block.float-right
+                  i.mdi.mdi-clock-outline
+                  | 05 AM
+            li.dropdown-footer
+              a.text-center href="#"  View All
+        / li.right-sidebar-in.right-sidebar-2-menu
+        /   i.mdi.mdi-settings.mdi-spin
+        /! User Account
+        li.dropdown.user-menu
+          button.dropdown-toggle.nav-link data-toggle="dropdown" href="#"
+            img.user-image alt=("User Image") src="#{image_path 'fuad.jpg'}" /
+            span.d-none.d-lg-inline-block = "#{User.current.login}"
+          ul.dropdown-menu.dropdown-menu-right
+            /! User image
+            li.dropdown-header
+              img.img-circle alt=("User Image") src="#{image_path 'fuad.jpg'}" /
+              .d-inline-block
+                span = "#{User.current.firstname} #{User.current.lastname}"
+                small.pt-1 = 'rksazid@gmail.com'
+            li
+              a href="#{user_path(User.current)}"
+                i.mdi.mdi-account
+                | My Profile
+            li
+              a href="#"
+                i.mdi.mdi-email
+                | Message
+            li
+              a href="#"
+                i.mdi.mdi-diamond-stone
+                | Projects
+            li.right-sidebar-in
+              a href="javascript:0"
+                i.mdi.mdi-settings
+                | Setting
+            li.dropdown-footer
+              = link_to signout_path
+                i.mdi.mdi-logout
+                | Log Out
